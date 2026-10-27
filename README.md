@@ -1,6 +1,6 @@
 # RealtyLeadsAI plugin
 
-Version 0.1.0, unpublished. This is a declarative, host-executed, read-only plugin;
+Version 0.1.0. This is a declarative, host-executed, read-only plugin;
 there is no plugin process that receives the user's API key.
 
 `csweet-plugin.json` declares a distinct `remote-mcp` kind and protocol 2.5. The
@@ -13,7 +13,8 @@ SDK 5.6.0 validates this profile. Older hosts reject it. The companion C-Sweet
 feature branch implements native key entry, owner/business/installation scope,
 explicit consumer consent, trusted dispatch and rotation/revocation fencing. Its
 synthetic browser acceptance passes connect → grant → actual agent read → revoke.
-Install only after the companion host and SDK 5.6.0 rollout. Publication alone does not establish a connection or grant. This first release requires immutable repository import; ZIP
+Install only after the companion host and SDK 5.6.0 rollout. Publication alone does not establish a connection or grant.
+This first release requires immutable repository import; ZIP
 source archives and executable bundles are rejected. See `C-Sweet/docs/implementation/realtyleads-remote-mcp.md`.
 
 Connection creation stores an unverified key with no grants. RealtyLeadsAI checks
