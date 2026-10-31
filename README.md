@@ -1,26 +1,40 @@
 # RealtyLeadsAI plugin
 
-Version 0.1.0. This is a declarative, host-executed, read-only plugin;
+Version 0.2.0. This is a declarative, host-executed, read-only plugin;
 there is no plugin process that receives the user's API key.
 
-`csweet-plugin.json` declares a distinct `remote-mcp` kind and protocol 2.5. The
-reviewed profile uses only `https://realtyleads.ai/mcp`, stateless POST, MCP
-2025-03-26, and `X-Api-Key`. It exposes inheritance search and lookup only, with
-closed input schemas and a projection containing the server's eleven safe fields.
-The key is never a manifest value, configuration field or business-tool argument.
+`csweet-plugin.json` declares `kind: remote-mcp` and protocol 2.6. The C-Sweet
+host builds its whole broker policy from this reviewed manifest: the endpoint
+(`https://realtyleads.ai/mcp`), the `X-Api-Key` header, stateless POST with MCP
+2025-03-26, and the `reviewedRemoteMcp.tools` map:
 
-SDK 5.7.0 validates this profile. Older hosts reject it. The companion C-Sweet
-feature branch implements native key entry, owner/business/installation scope,
-explicit consumer consent, trusted dispatch and rotation/revocation fencing. Its
-synthetic browser acceptance passes connect → grant → actual agent read → revoke.
-Install only after the companion host and SDK 5.7.0 rollout. Publication alone does not establish a connection or grant.
-This first release requires immutable repository import; ZIP
-source archives and executable bundles are rejected. See `C-Sweet/docs/implementation/realtyleads-remote-mcp.md`.
+| Capability | Remote tool |
+|---|---|
+| `realtyleads.inheritance.search.v1` | `search_inheritance_leads` |
+| `realtyleads.inheritance.lookup.v1` | `get_inheritance_lead_by_id` |
+
+Input and output schemas are closed and bounded (SDK `ClosedJsonSchema`); the host
+enforces them on every request and result and releases only the eleven safe lead
+fields. The key is never a manifest value, configuration field or business-tool argument.
+Adding a RealtyLeads read tool is now a manifest change plus the server tool — no
+C-Sweet host code change.
+
+Requires SDK 5.8.0 and a C-Sweet host with the generic reviewed remote MCP broker.
+Older hosts reject protocol 2.6. Install from an immutable repository import; ZIP
+source archives and executable bundles are rejected. The install review shows the
+endpoint that will receive connected keys.
 
 Connection creation stores an unverified key with no grants. RealtyLeadsAI checks
 key validity and company membership when the agent reads; C-Sweet does not discover
 or verify the provider company identity. Human connection owners must be active
 business Managers or above. Never paste a real key into chat or agent configuration.
 
-Contract source inspected locally: RealtyLeadsAI's `InheritanceLeadTools`,
-`McpAccess`, `Program` and MCP security tests. No deployment was modified.
+## Validation
+
+```sh
+dotnet run --project validation -- csweet-plugin.json validation/remote-tools.json
+```
+
+This validates the manifest with the SDK and checks each mapped tool against
+`validation/remote-tools.json`, a recorded `tools/list` shape from
+`RealtyLeads.McpServer`. Update that file whenever a server tool signature changes.

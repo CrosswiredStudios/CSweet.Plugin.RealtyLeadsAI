@@ -1,0 +1,29 @@
+{
+  "source": "RealtyLeads.McpServer Tools/InheritanceLeadTools.cs at RealtyLeadsAI 9cea461e (recorded tools/list shape; update when the server signatures change)",
+  "tools": [
+    {
+      "name": "search_inheritance_leads",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "state": { "type": ["string", "null"], "description": "State abbreviation or name to filter by (e.g., 'TX', 'Texas')", "default": null },
+          "county": { "type": ["string", "null"], "description": "County name to filter by", "default": null },
+          "city": { "type": ["string", "null"], "description": "City name to filter by", "default": null },
+          "status": { "type": ["string", "null"], "description": "Lead status to filter by", "default": null },
+          "minScore": { "type": ["number", "null"], "description": "Minimum match score (0-100)", "default": null },
+          "limit": { "type": "integer", "description": "Maximum number of results to return (1-100, default 50)", "default": 50 }
+        }
+      }
+    },
+    {
+      "name": "get_inheritance_lead_by_id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "The unique identifier (GUID) of the inheritance lead" }
+        },
+        "required": ["id"]
+      }
+    }
+  ]
+}
