@@ -3,7 +3,7 @@
   "kind": "remote-mcp",
   "id": "com.crosswiredstudios.plugin.realtyleads",
   "name": "RealtyLeadsAI",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": {
     "id": "com.crosswiredstudios",
     "name": "CrosswiredStudios"
@@ -152,6 +152,32 @@
                 "number",
                 "null"
               ]
+            },
+            "dateOfDeath": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 32,
+              "description": "Date of death from the obituary, ISO 8601 date or date-time (UTC). Absent until the provider publishes it."
+            },
+            "totalHeirs": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1000,
+              "description": "Number of heirs the provider has identified for this lead."
+            },
+            "contactableHeirs": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1000,
+              "description": "Heirs with at least one contact method on file (count only; no contact details are returned)."
             }
           },
           "required": [
@@ -267,6 +293,32 @@
               "number",
               "null"
             ]
+          },
+          "dateOfDeath": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 32,
+            "description": "Date of death from the obituary, ISO 8601 date or date-time (UTC). Absent until the provider publishes it."
+          },
+          "totalHeirs": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Number of heirs the provider has identified for this lead."
+          },
+          "contactableHeirs": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Heirs with at least one contact method on file (count only; no contact details are returned)."
           }
         },
         "required": [
