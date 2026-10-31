@@ -1,6 +1,6 @@
 # RealtyLeadsAI plugin
 
-Version 0.2.0. This is a declarative, host-executed, read-only plugin;
+Version 0.2.1. This is a declarative, host-executed, read-only plugin;
 there is no plugin process that receives the user's API key.
 
 `csweet-plugin.json` declares `kind: remote-mcp` and protocol 2.6. The C-Sweet
@@ -14,8 +14,9 @@ host builds its whole broker policy from this reviewed manifest: the endpoint
 | `realtyleads.inheritance.lookup.v1` | `get_inheritance_lead_by_id` |
 
 Input and output schemas are closed and bounded (SDK `ClosedJsonSchema`); the host
-enforces them on every request and result and releases only the eleven safe lead
-fields. The key is never a manifest value, configuration field or business-tool argument.
+enforces them on every request and result and releases only the reviewed safe lead
+fields: the eleven identity/location fields plus, since 0.2.1, three optional obituary-derived
+values (`dateOfDeath`, `totalHeirs`, `contactableHeirs`; counts only, never contact details). The key is never a manifest value, configuration field or business-tool argument.
 Adding a RealtyLeads read tool is now a manifest change plus the server tool — no
 C-Sweet host code change.
 
